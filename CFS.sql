@@ -23,3 +23,10 @@ VALUES ('vince', '123456', 'Vince', default),
 
 -- select * from Accounts
 
+CREATE TABLE Drinks (
+	account_id int IDENTITY(1, 1) PRIMARY KEY,
+	username varchar(25) NOT NULL,
+	[password] varchar(25) NOT NULL,
+	[name] nvarchar(25),
+	[role] varchar(25) DEFAULT 'Cashier'
+)
