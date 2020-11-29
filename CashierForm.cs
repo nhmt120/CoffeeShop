@@ -77,13 +77,13 @@ namespace CoffeeShop
 
             for (int i = 0; i < listNo; i++)
             {
+                // order details
                 sql = "INSERT INTO Order_Detail (order_id, drink_name, quantity) " +
                     "VALUES (" + order_id + ", '" + listName[i] + "', " + listQuantity[i] + ")";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
 
-                
-
+                // update stock
                 sql = "UPDATE Order_Detail SET quantity = " + listQuantity[i] +
                     " WHERE order_id = " + order_id + " and drink_name = '" + listName[i] + "'";
                 cmd = new SqlCommand(sql, connection);
@@ -107,6 +107,8 @@ namespace CoffeeShop
         private void clearOrder()
         {
             listNo = 0;
+            listStock.Clear();
+            stockTemp.Clear();
             listName.Clear();
             listQuantity.Clear();
             listSum.Clear();
