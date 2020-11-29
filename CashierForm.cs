@@ -16,6 +16,7 @@ namespace CoffeeShop
     {
         private SqlConnection connection;
         List<float> listPrice = new List<float>();
+        List<int> stockTemp = new List<int>();
 
         int listNo = 0;
         float total;
@@ -23,6 +24,7 @@ namespace CoffeeShop
         ArrayList listName = new ArrayList();
         List<int> listQuantity = new List<int>();
         List<float> listSum = new List<float>();
+        List<int> listStock = new List<int>();
 
         public CashierForm()
         {
@@ -38,17 +40,27 @@ namespace CoffeeShop
             gridOrder.Columns[2].Name = "Quantity";
             gridOrder.Columns[3].Name = "Sum";
             Connect();
-            LoadDrinks();
+            LoadDrinks(-1);
         }
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
+
+            List<int> listStockIndex = new List<int>();
+            int order_id = 1;
+
+            for (int i = 0; i < stockTemp.Count; i++)
+            {
+                if (stockTemp[i] != listStock[i])
+                {
+                    listStockIndex.Add(i);
+                }
+            }
+
             connection.Open();
             String sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
             SqlCommand cmd = new SqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
-
-            int order_id = 1;
 
             sql = "SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)";
             cmd = new SqlCommand(sql, connection);
@@ -69,12 +81,26 @@ namespace CoffeeShop
                     "VALUES (" + order_id + ", '" + listName[i] + "', " + listQuantity[i] + ")";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
-            }
-            
 
+                
+
+                sql = "UPDATE Order_Detail SET quantity = " + listQuantity[i] +
+                    " WHERE order_id = " + order_id + " and drink_name = '" + listName[i] + "'";
+                cmd = new SqlCommand(sql, connection);
+                cmd.ExecuteNonQuery();
+
+                sql = "UPDATE Drinks SET stock = " + (listStock[listStockIndex[i]] - listQuantity[i]) +
+                    " WHERE drink_id = " + (listStockIndex[i] + 1);
+                cmd = new SqlCommand(sql, connection);
+                cmd.ExecuteNonQuery();
+            }
+
+            connection.Close();
 
             clearOrder();
-            LoadOrder();
+            LoadOrder(-1);
+            MessageBox.Show("Checkout successfully.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            LoadDrinks(-1);
             connection.Close();
         }
 
@@ -85,17 +111,21 @@ namespace CoffeeShop
             listQuantity.Clear();
             listSum.Clear();
             total = 0;
+
+            LoadDrinks(-1);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            stockTemp = listStock;
             clearOrder();
-            LoadOrder();
+            LoadOrder(-1);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
+            List<int> listItemIndex = new List<int>();
             String value = (String) gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
@@ -113,7 +143,8 @@ namespace CoffeeShop
                     {
                         total += j;
                     }
-                    LoadOrder();
+                    
+                    LoadOrder(itemIndex);
                     return;
                 }
             }
@@ -129,16 +160,17 @@ namespace CoffeeShop
                 total += i;
             }
 
-            LoadOrder();
+            LoadOrder(itemIndex);
              
             //MessageBox.Show("yooo " + listQuantity + " ss " + listQuantity[index]);
         }
 
-        public void LoadOrder() {
+        public void LoadOrder(int index) {
             
 
             gridOrder.Rows.Clear();
             gridOrder.Refresh();
+            
 
             for (int i = 0; i < listNo; i++)
             {
@@ -150,19 +182,24 @@ namespace CoffeeShop
                 newRow.Cells[2].Value = listQuantity[i];
                 newRow.Cells[3].Value = listSum[i];
                 gridOrder.Rows.Add(newRow);
-
             }
+
+            LoadDrinks(index);
 
             lbTotal.Text = total.ToString();
             
 
         }
 
-        public void LoadDrinks()
+        public void LoadDrinks(int index)
         {
-            ArrayList listNamed = new ArrayList();
-            ArrayList listStock = new ArrayList();
+            connection.Open();
+            gridMenu.Rows.Clear();
+            gridMenu.Refresh();
 
+            ArrayList listNamed = new ArrayList();
+            List<int> stock = new List<int>();
+            
             String sql = "SELECT name, stock, price FROM Drinks";
             SqlCommand cmd = new SqlCommand(sql, connection);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -176,24 +213,42 @@ namespace CoffeeShop
                 while (reader.Read())
                 {
                     listNamed.Add(reader["name"].ToString());
-                    listStock.Add(reader["stock"].ToString());
+                    listStock.Add(int.Parse(reader["stock"].ToString()));
+                    stockTemp.Add(int.Parse(reader["stock"].ToString()));
+                    stock.Add(int.Parse(reader["stock"].ToString()));
                     listPrice.Add(float.Parse(reader["price"].ToString()));
                 }
                 reader.Close();
 
                 //MessageBox.Show(listStock.ToArray().ToString());
 
+                if (index != -1)
+                {
+                    stockTemp[index] -= 1;
+                    for (int i = 0; i < listNamed.Count; i++)
+                    {
+                        DataGridViewRow newRow = new DataGridViewRow();
+
+                        newRow.CreateCells(gridMenu);
+                        newRow.Cells[0].Value = listNamed[i];
+                        newRow.Cells[1].Value = stockTemp[i];
+                        gridMenu.Rows.Add(newRow);
+                    }
+                } else
+                {
+                    for (int i = 0; i < listNamed.Count; i++)
+                    {
+                        DataGridViewRow newRow = new DataGridViewRow();
+
+                        newRow.CreateCells(gridMenu);
+                        newRow.Cells[0].Value = listNamed[i];
+                        newRow.Cells[1].Value = stock[i];
+                        gridMenu.Rows.Add(newRow);
+                    }
+                }
                 
 
-                for (int i = 0; i < listNamed.Count; i++)
-                {
-                    DataGridViewRow newRow = new DataGridViewRow();
-
-                    newRow.CreateCells(gridMenu);
-                    newRow.Cells[0].Value = listNamed[i];
-                    newRow.Cells[1].Value = listStock[i];
-                    gridMenu.Rows.Add(newRow);
-                }
+                
             }
             connection.Close();
         }
@@ -204,7 +259,7 @@ namespace CoffeeShop
             try
             {
                 connection = new SqlConnection(connectionString);
-                connection.Open();
+                //connection.Open();
                 //MessageBox.Show("Connect to db.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

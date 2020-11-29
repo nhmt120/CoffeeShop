@@ -67,9 +67,9 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.btnLogout);
-            this.panel3.Location = new System.Drawing.Point(707, 7);
+            this.panel3.Location = new System.Drawing.Point(702, 7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(81, 28);
+            this.panel3.Size = new System.Drawing.Size(86, 36);
             this.panel3.TabIndex = 12;
             // 
             // btnLogout

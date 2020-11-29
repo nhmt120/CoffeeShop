@@ -1,0 +1,12 @@
+C:\Users\vince\source\repos\CoffeeShop\bin\Debug\CoffeeShop.exe.config
+C:\Users\vince\source\repos\CoffeeShop\bin\Debug\CoffeeShop.exe
+C:\Users\vince\source\repos\CoffeeShop\bin\Debug\CoffeeShop.pdb
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.csprojAssemblyReference.cache
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.AdminForm.resources
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.CashierForm.resources
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.LoginForm.resources
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.Properties.Resources.resources
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.csproj.GenerateResource.cache
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.csproj.CoreCompileInputs.cache
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.exe
+C:\Users\vince\source\repos\CoffeeShop\obj\Debug\CoffeeShop.pdb

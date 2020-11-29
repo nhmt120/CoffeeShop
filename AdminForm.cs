@@ -248,5 +248,12 @@ namespace CoffeeShop
         {
             Application.Exit();
         }
+
+        private void btnCashier_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CashierForm cashier = new CashierForm();
+            cashier.Show();
+        }
     }
 }

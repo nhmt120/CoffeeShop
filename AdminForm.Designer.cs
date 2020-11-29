@@ -53,6 +53,7 @@
             this.btnAddUser = new System.Windows.Forms.Button();
             this.gridUsers = new System.Windows.Forms.DataGridView();
             this.tabHistory = new System.Windows.Forms.TabPage();
+            this.gridHistory = new System.Windows.Forms.DataGridView();
             this.accountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFSDataSet = new CoffeeShop.CFSDataSet();
@@ -61,7 +62,7 @@
             this.tableAdapterManager1 = new CoffeeShop.CFSDataSetTableAdapters.TableAdapterManager();
             this.btnLogout = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.gridHistory = new System.Windows.Forms.DataGridView();
+            this.btnCashier = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,11 +71,11 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).BeginInit();
             this.tabHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cFSDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource1)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -317,6 +318,20 @@
             this.tabHistory.Text = "History";
             this.tabHistory.UseVisualStyleBackColor = true;
             // 
+            // gridHistory
+            // 
+            this.gridHistory.AllowUserToOrderColumns = true;
+            this.gridHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridHistory.Location = new System.Drawing.Point(30, 48);
+            this.gridHistory.Name = "gridHistory";
+            this.gridHistory.RowHeadersVisible = false;
+            this.gridHistory.RowHeadersWidth = 51;
+            this.gridHistory.RowTemplate.Height = 24;
+            this.gridHistory.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridHistory.Size = new System.Drawing.Size(742, 250);
+            this.gridHistory.TabIndex = 2;
+            // 
             // accountsBindingSource
             // 
             this.accountsBindingSource.DataMember = "Accounts";
@@ -349,7 +364,7 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(9, 3);
+            this.btnLogout.Location = new System.Drawing.Point(228, 3);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 25);
             this.btnLogout.TabIndex = 6;
@@ -359,25 +374,22 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnCashier);
             this.panel3.Controls.Add(this.btnLogout);
-            this.panel3.Location = new System.Drawing.Point(734, 3);
+            this.panel3.Location = new System.Drawing.Point(515, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(81, 28);
+            this.panel3.Size = new System.Drawing.Size(308, 28);
             this.panel3.TabIndex = 3;
             // 
-            // gridHistory
+            // btnCashier
             // 
-            this.gridHistory.AllowUserToOrderColumns = true;
-            this.gridHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridHistory.Location = new System.Drawing.Point(30, 48);
-            this.gridHistory.Name = "gridHistory";
-            this.gridHistory.RowHeadersVisible = false;
-            this.gridHistory.RowHeadersWidth = 51;
-            this.gridHistory.RowTemplate.Height = 24;
-            this.gridHistory.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridHistory.Size = new System.Drawing.Size(742, 250);
-            this.gridHistory.TabIndex = 2;
+            this.btnCashier.Location = new System.Drawing.Point(108, 3);
+            this.btnCashier.Name = "btnCashier";
+            this.btnCashier.Size = new System.Drawing.Size(114, 25);
+            this.btnCashier.TabIndex = 7;
+            this.btnCashier.Text = "Cashier Mode";
+            this.btnCashier.UseVisualStyleBackColor = true;
+            this.btnCashier.Click += new System.EventHandler(this.btnCashier_Click);
             // 
             // AdminForm
             // 
@@ -401,11 +413,11 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).EndInit();
             this.tabHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cFSDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource1)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -450,5 +462,6 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView gridHistory;
+        private System.Windows.Forms.Button btnCashier;
     }
 }
