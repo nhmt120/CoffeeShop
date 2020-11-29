@@ -14,6 +14,12 @@ namespace CoffeeShop
     public partial class LoginForm : Form
     {
         private SqlConnection connection;
+        SqlDataReader reader;
+        SqlCommand cmd;
+
+        String username;
+        String password;
+        String role = null;
         public LoginForm()
         {
             InitializeComponent();
@@ -21,9 +27,8 @@ namespace CoffeeShop
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            String username = txtUsername.Text;
-            String password = txtPassword.Text;
-
+            username = txtUsername.Text;
+            password = txtPassword.Text;
 
             //MessageBox.Show(username + " " + password);
 
@@ -32,14 +37,23 @@ namespace CoffeeShop
             } else if (password == "") {
                 txtPassword.Focus();
             } else {
-                String role = null;
-                String sql = "SELECT * FROM Accounts where username = '" + username + "' and password = '" + password + "'";
-                SqlCommand cmd = new SqlCommand(sql, connection);
-                SqlDataReader reader = cmd.ExecuteReader();
+                //MessageBox.Show(username + " " + password);
+                role = null;
+                String sql = "SELECT role FROM Accounts WHERE username = '" + username + "' and password = '" + password + "'";
+                cmd = new SqlCommand(sql, connection);
+                reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
-                    role = reader[4].ToString();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        role = reader[0].ToString();
+                    }
+                    //MessageBox.Show("Read :)");
                 }
+
+                
+
                 reader.Close();
                 if (role == "Admin") {
                     AdminForm admin = new AdminForm();

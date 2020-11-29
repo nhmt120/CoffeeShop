@@ -8,25 +8,41 @@ drop database CFS
 
 
 -- identity = auto increment
--- drop table accounts
 CREATE TABLE Accounts (
 	account_id int IDENTITY(1, 1) PRIMARY KEY,
 	username varchar(25) NOT NULL,
 	[password] varchar(25) NOT NULL,
 	[name] nvarchar(25),
-	[role] varchar(25) DEFAULT 'Cashier'
+	[role] varchar(25)
 )
 
 INSERT INTO Accounts (username, password, name, role)
-VALUES ('vince', '123456', 'Vince', default),
-	   ('admin', 'admin', 'Administrator', 'Admin')
+VALUES ('vince', 'vince', 'Vince', 'Cashier'),
+	   ('admin', 'admin', 'Administrator', 'Admin'),
+	   ('cashier', 'cashier', 'Cashier', 'Cashier')
 
+-- drop table accounts
 -- select * from Accounts
+-- where role = 'Admin'
+-- "SELECT * FROM Accounts WHERE username = 'dm' and password = 'dm';"
 
 CREATE TABLE Drinks (
-	account_id int IDENTITY(1, 1) PRIMARY KEY,
-	username varchar(25) NOT NULL,
-	[password] varchar(25) NOT NULL,
-	[name] nvarchar(25),
-	[role] varchar(25) DEFAULT 'Cashier'
+	drink_id int IDENTITY(1, 1) PRIMARY KEY,
+	[name] nvarchar(25) NOT NULL,
+	price money NOT NULL,
+	stock int DEFAULT 10,
+	[image] nvarchar(250) NULL
 )
+
+INSERT INTO Drinks (name, price)
+VALUES ('Espresso', 3.0),
+	   ('Ristretto', 3.5),
+	   ('Doppio', 3.5),
+	   ('Latte', 4.0),
+	   ('Cappuchino', 4.0),
+	   ('Macchiato', 4.0),
+	   ('Americano', 2.5),
+	   ('Cold Brew', 3.0)
+
+-- drop table Drinks
+-- select * from Drinks where name = 'Hot Choc'
