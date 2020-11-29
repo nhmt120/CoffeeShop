@@ -34,8 +34,10 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.gridOrder = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbTotal = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnCheckout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridMenu)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridOrder)).BeginInit();
@@ -100,15 +102,15 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Total:";
             // 
-            // label3
+            // lbTotal
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.label3.Location = new System.Drawing.Point(733, 241);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 25);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "0.0 $";
+            this.lbTotal.AutoSize = true;
+            this.lbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lbTotal.Location = new System.Drawing.Point(733, 241);
+            this.lbTotal.Name = "lbTotal";
+            this.lbTotal.Size = new System.Drawing.Size(55, 25);
+            this.lbTotal.TabIndex = 15;
+            this.lbTotal.Text = "0.0 $";
             // 
             // btnAdd
             // 
@@ -120,13 +122,34 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(225, 116);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(105, 33);
+            this.btnClear.TabIndex = 17;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnCheckout
+            // 
+            this.btnCheckout.Location = new System.Drawing.Point(225, 191);
+            this.btnCheckout.Name = "btnCheckout";
+            this.btnCheckout.Size = new System.Drawing.Size(105, 33);
+            this.btnCheckout.TabIndex = 18;
+            this.btnCheckout.Text = "Checkout";
+            this.btnCheckout.UseVisualStyleBackColor = true;
+            // 
             // CashierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 413);
+            this.Controls.Add(this.btnCheckout);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lbTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gridOrder);
             this.Controls.Add(this.panel3);
@@ -152,7 +175,9 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.DataGridView gridOrder;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbTotal;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnCheckout;
     }
 }

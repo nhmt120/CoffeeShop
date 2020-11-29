@@ -2,8 +2,10 @@
 USE CFS
 
 /*
-use ATM
+create database foo
+use foo
 drop database CFS
+drop database foo
 */
 
 
@@ -24,7 +26,7 @@ VALUES ('vince', 'vince', 'Vince', 'Cashier'),
 -- drop table accounts
 -- select * from Accounts
 -- where role = 'Admin'
--- "SELECT * FROM Accounts WHERE username = 'dm' and password = 'dm';"
+-- "SELECT * FROM Accounts WHERE username = 'cashier1' and password = 'cashier1';"
 
 CREATE TABLE Drinks (
 	drink_id int IDENTITY(1, 1) PRIMARY KEY,
@@ -46,3 +48,15 @@ VALUES ('Espresso', 3.0),
 
 -- drop table Drinks
 -- select * from Drinks where name = 'Hot Choc'
+
+
+CREATE TABLE Orders (
+	order_id int IDENTITY(1, 1) PRIMARY KEY,
+	total money NOT NULL,
+	[date] date
+)
+
+CREATE TABLE Order_Details (
+	order_id int FOREIGN KEY REFERENCES Orders(order_id),
+	drink_name nvarchar(25)
+)

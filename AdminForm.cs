@@ -192,7 +192,7 @@ namespace CoffeeShop
             else {
                 if (name == "") name = "";
                 String sql = "INSERT INTO Accounts(username, password, name, role)" +
-                    "VALUES('" + username + "', ' " + password + " ', '" + name + "', '" + role + "')";
+                    "VALUES('" + username + "', '" + password + "', '" + name + "', '" + role + "')";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
                 gridUsers.Rows.Clear();

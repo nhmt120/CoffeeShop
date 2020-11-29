@@ -19,9 +19,12 @@ namespace CoffeeShop
 
         int lenList = 0;
         int listNo = 0;
+        float total;
+
         ArrayList listName = new ArrayList();
         List<int> listQuantity = new List<int>();
         List<float> listSum = new List<float>();
+
         public CashierForm()
         {
             InitializeComponent();
@@ -34,20 +37,37 @@ namespace CoffeeShop
             LoadDrinks();
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            listNo = 0;
+            listName.Clear();
+            listQuantity.Clear();
+            listSum.Clear();
+            total = 0;
+            LoadOrder();
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
             String value = (String) gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
+            
             //MessageBox.Show(listPrice[index].ToString());
             foreach (string i in listName)
             {
+                
                 if (i == value) {
                     index = listName.IndexOf(i);
                     listQuantity[index] += 1;
                     listSum[index] += listPrice[itemIndex];
-                    LoadOrder(index);
+                    total = 0;
+                    foreach (float j in listSum)
+                    {
+                        total += j;
+                    }
+                    LoadOrder();
                     return;
                 }
             }
@@ -56,12 +76,19 @@ namespace CoffeeShop
             listQuantity.Add(1);
             listName.Add(value);
             listSum.Add(listPrice[itemIndex]);
-            LoadOrder(index);
 
+            total = 0 ;
+            foreach (float i in listSum)
+            {
+                total += i;
+            }
+
+            LoadOrder();
+             
             //MessageBox.Show("yooo " + listQuantity + " ss " + listQuantity[index]);
         }
 
-        public void LoadOrder(int index) {
+        public void LoadOrder() {
             gridOrder.ColumnCount = 4;
             gridOrder.Columns[0].Name = "No.";
             gridOrder.Columns[1].Name = "Name";
@@ -84,7 +111,7 @@ namespace CoffeeShop
 
             }
 
-            
+            lbTotal.Text = total.ToString();
             
 
         }
