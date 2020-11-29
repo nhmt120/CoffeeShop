@@ -61,6 +61,7 @@
             this.tableAdapterManager1 = new CoffeeShop.CFSDataSetTableAdapters.TableAdapterManager();
             this.btnLogout = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.gridHistory = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -68,10 +69,12 @@
             this.tabUsers.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).BeginInit();
+            this.tabHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cFSDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource1)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -172,9 +175,11 @@
             // gridDrinks
             // 
             this.gridDrinks.AllowUserToOrderColumns = true;
+            this.gridDrinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridDrinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridDrinks.Location = new System.Drawing.Point(29, 69);
             this.gridDrinks.Name = "gridDrinks";
+            this.gridDrinks.RowHeadersVisible = false;
             this.gridDrinks.RowHeadersWidth = 51;
             this.gridDrinks.RowTemplate.Height = 24;
             this.gridDrinks.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -291,9 +296,11 @@
             // gridUsers
             // 
             this.gridUsers.AllowUserToOrderColumns = true;
+            this.gridUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridUsers.Location = new System.Drawing.Point(29, 69);
             this.gridUsers.Name = "gridUsers";
+            this.gridUsers.RowHeadersVisible = false;
             this.gridUsers.RowHeadersWidth = 51;
             this.gridUsers.RowTemplate.Height = 24;
             this.gridUsers.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -302,6 +309,7 @@
             // 
             // tabHistory
             // 
+            this.tabHistory.Controls.Add(this.gridHistory);
             this.tabHistory.Location = new System.Drawing.Point(4, 25);
             this.tabHistory.Name = "tabHistory";
             this.tabHistory.Size = new System.Drawing.Size(802, 346);
@@ -357,6 +365,20 @@
             this.panel3.Size = new System.Drawing.Size(81, 28);
             this.panel3.TabIndex = 3;
             // 
+            // gridHistory
+            // 
+            this.gridHistory.AllowUserToOrderColumns = true;
+            this.gridHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridHistory.Location = new System.Drawing.Point(30, 48);
+            this.gridHistory.Name = "gridHistory";
+            this.gridHistory.RowHeadersVisible = false;
+            this.gridHistory.RowHeadersWidth = 51;
+            this.gridHistory.RowTemplate.Height = 24;
+            this.gridHistory.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridHistory.Size = new System.Drawing.Size(742, 250);
+            this.gridHistory.TabIndex = 2;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -367,6 +389,7 @@
             this.Name = "AdminForm";
             this.Text = "Admin Management";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabMenu.ResumeLayout(false);
@@ -377,10 +400,12 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridUsers)).EndInit();
+            this.tabHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cFSDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountsBindingSource1)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridHistory)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -424,5 +449,6 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridView gridHistory;
     }
 }

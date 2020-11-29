@@ -54,13 +54,14 @@
             // 
             // gridMenu
             // 
+            this.gridMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridMenu.Location = new System.Drawing.Point(24, 49);
             this.gridMenu.Name = "gridMenu";
             this.gridMenu.RowHeadersVisible = false;
             this.gridMenu.RowHeadersWidth = 51;
             this.gridMenu.RowTemplate.Height = 24;
-            this.gridMenu.Size = new System.Drawing.Size(195, 344);
+            this.gridMenu.Size = new System.Drawing.Size(170, 344);
             this.gridMenu.TabIndex = 11;
             // 
             // panel3
@@ -83,20 +84,21 @@
             // 
             // gridOrder
             // 
+            this.gridOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridOrder.Location = new System.Drawing.Point(336, 49);
+            this.gridOrder.Location = new System.Drawing.Point(311, 49);
             this.gridOrder.Name = "gridOrder";
             this.gridOrder.RowHeadersVisible = false;
             this.gridOrder.RowHeadersWidth = 51;
             this.gridOrder.RowTemplate.Height = 24;
-            this.gridOrder.Size = new System.Drawing.Size(452, 175);
+            this.gridOrder.Size = new System.Drawing.Size(477, 175);
             this.gridOrder.TabIndex = 13;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.label1.Location = new System.Drawing.Point(616, 241);
+            this.label1.Location = new System.Drawing.Point(665, 241);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 25);
             this.label1.TabIndex = 14;
@@ -108,13 +110,13 @@
             this.lbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.lbTotal.Location = new System.Drawing.Point(733, 241);
             this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(55, 25);
+            this.lbTotal.Size = new System.Drawing.Size(23, 25);
             this.lbTotal.TabIndex = 15;
-            this.lbTotal.Text = "0.0 $";
+            this.lbTotal.Text = "0";
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(225, 49);
+            this.btnAdd.Location = new System.Drawing.Point(200, 49);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(105, 33);
             this.btnAdd.TabIndex = 16;
@@ -124,7 +126,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(225, 116);
+            this.btnClear.Location = new System.Drawing.Point(200, 118);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(105, 33);
             this.btnClear.TabIndex = 17;
@@ -134,12 +136,13 @@
             // 
             // btnCheckout
             // 
-            this.btnCheckout.Location = new System.Drawing.Point(225, 191);
+            this.btnCheckout.Location = new System.Drawing.Point(200, 191);
             this.btnCheckout.Name = "btnCheckout";
             this.btnCheckout.Size = new System.Drawing.Size(105, 33);
             this.btnCheckout.TabIndex = 18;
             this.btnCheckout.Text = "Checkout";
             this.btnCheckout.UseVisualStyleBackColor = true;
+            this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
             // 
             // CashierForm
             // 
@@ -158,6 +161,7 @@
             this.Name = "CashierForm";
             this.Text = "Coffee Shop System";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CashierForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CashierForm_FormClosed);
             this.Load += new System.EventHandler(this.CashierForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridMenu)).EndInit();
             this.panel3.ResumeLayout(false);

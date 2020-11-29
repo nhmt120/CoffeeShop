@@ -53,10 +53,25 @@ VALUES ('Espresso', 3.0),
 CREATE TABLE Orders (
 	order_id int IDENTITY(1, 1) PRIMARY KEY,
 	total money NOT NULL,
-	[date] date
+	[date] smalldatetime
 )
 
-CREATE TABLE Order_Details (
+-- SELECT * FROM Orders
+-- drop table Orders
+
+-- INSERT INTO Orders (total, date) VALUES (2.5, (SELECT GETDATE()))
+
+
+CREATE TABLE Order_Detail (
 	order_id int FOREIGN KEY REFERENCES Orders(order_id),
-	drink_name nvarchar(25)
+	drink_name nvarchar(25),
+	quantity int
 )
+
+-- drop table Order_Detail
+-- select * from Order_Detail
+
+-- get latest inserted data
+-- SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)
+
+INSERT INTO Order_Detail (order_id, drink_name, quantity) VALUES ((SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)), 'Espresso', 2)

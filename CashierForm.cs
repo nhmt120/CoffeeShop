@@ -17,7 +17,6 @@ namespace CoffeeShop
         private SqlConnection connection;
         List<float> listPrice = new List<float>();
 
-        int lenList = 0;
         int listNo = 0;
         float total;
 
@@ -33,17 +32,64 @@ namespace CoffeeShop
 
         private void CashierForm_Load(object sender, EventArgs e)
         {
+            gridOrder.ColumnCount = 4;
+            gridOrder.Columns[0].Name = "No.";
+            gridOrder.Columns[1].Name = "Name";
+            gridOrder.Columns[2].Name = "Quantity";
+            gridOrder.Columns[3].Name = "Sum";
             Connect();
             LoadDrinks();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void btnCheckout_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+            String sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            cmd.ExecuteNonQuery();
+
+            int order_id = 1;
+
+            sql = "SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)";
+            cmd = new SqlCommand(sql, connection);
+            cmd.ExecuteNonQuery();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read()) {
+                    order_id = int.Parse(reader["order_id"].ToString());
+                }
+                reader.Close();
+            }
+
+            for (int i = 0; i < listNo; i++)
+            {
+                sql = "INSERT INTO Order_Detail (order_id, drink_name, quantity) " +
+                    "VALUES (" + order_id + ", '" + listName[i] + "', " + listQuantity[i] + ")";
+                cmd = new SqlCommand(sql, connection);
+                cmd.ExecuteNonQuery();
+            }
+            
+
+
+            clearOrder();
+            LoadOrder();
+            connection.Close();
+        }
+
+        private void clearOrder()
         {
             listNo = 0;
             listName.Clear();
             listQuantity.Clear();
             listSum.Clear();
             total = 0;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            clearOrder();
             LoadOrder();
         }
 
@@ -77,7 +123,7 @@ namespace CoffeeShop
             listName.Add(value);
             listSum.Add(listPrice[itemIndex]);
 
-            total = 0 ;
+            total = 0;
             foreach (float i in listSum)
             {
                 total += i;
@@ -89,11 +135,7 @@ namespace CoffeeShop
         }
 
         public void LoadOrder() {
-            gridOrder.ColumnCount = 4;
-            gridOrder.Columns[0].Name = "No.";
-            gridOrder.Columns[1].Name = "Name";
-            gridOrder.Columns[2].Name = "Quantity";
-            gridOrder.Columns[3].Name = "Sum";
+            
 
             gridOrder.Rows.Clear();
             gridOrder.Refresh();
@@ -113,17 +155,6 @@ namespace CoffeeShop
 
             lbTotal.Text = total.ToString();
             
-
-        }
-
-        public void Price()
-        {
-            connection.Open();
-
-            String sql = "SELECT name, price FROM Drinks";
-            SqlCommand cmd = new SqlCommand(sql, connection);
-            SqlDataReader reader = cmd.ExecuteReader();
-
 
         }
 
@@ -182,17 +213,7 @@ namespace CoffeeShop
             }
         }
 
-        private void CashierForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to exit?", "Coffee Shop Management System", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                Application.Exit();
-            }
-        }
+        
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
@@ -201,5 +222,17 @@ namespace CoffeeShop
             loginForm.Show();
         }
 
+        private void CashierForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Coffee Shop Management System", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void CashierForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace CoffeeShop
 
                 LoadUsers();
                 LoadDrinks();
+                LoadHistory();
                 cbbRole.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -39,7 +40,44 @@ namespace CoffeeShop
             }
         }
 
+        public void LoadHistory()
+        {
+            ArrayList listId = new ArrayList();
+            ArrayList listTotal = new ArrayList();
+            ArrayList listDate = new ArrayList();
 
+            String sql = "SELECT * FROM Orders";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            gridHistory.ColumnCount = 3;
+            gridHistory.Columns[0].Name = "Order ID";
+            gridHistory.Columns[1].Name = "Total";
+            gridHistory.Columns[2].Name = "Time";
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    listId.Add(reader["order_id"].ToString());
+                    listTotal.Add(reader["total"].ToString());
+                    listDate.Add(reader["date"].ToString());
+                }
+                reader.Close();
+
+                for (int i = 0; i < listId.Count; i++)
+                {
+                    DataGridViewRow newRow = new DataGridViewRow();
+
+                    newRow.CreateCells(gridHistory);
+                    newRow.Cells[0].Value = listId[i];
+                    newRow.Cells[1].Value = listTotal[i];
+                    newRow.Cells[2].Value = listDate[i];
+                    gridHistory.Rows.Add(newRow);
+                }
+            }
+
+        }
 
         public void LoadUsers()
         {
@@ -133,17 +171,6 @@ namespace CoffeeShop
             }
         }
 
-        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to exit?", "Coffee Shop Management System", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                Application.Exit();
-            }
-        }
 
         private void btnAddDrinks_Click(object sender, EventArgs e)
         {
@@ -207,6 +234,19 @@ namespace CoffeeShop
             this.Hide();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
+        }
+
+        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Coffee Shop Management System", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
