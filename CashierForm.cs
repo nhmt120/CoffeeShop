@@ -49,7 +49,7 @@ namespace CoffeeShop
             List<int> listStockIndex = new List<int>();
             int order_id = 1;
 
-            for (int i = 0; i < stockTemp.Count; i++)
+            for (int i = 0; i < listStock.Count; i++)
             {
                 if (stockTemp[i] != listStock[i])
                 {
@@ -62,6 +62,7 @@ namespace CoffeeShop
             SqlCommand cmd = new SqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
 
+            //get id of latest order 
             sql = "SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)";
             cmd = new SqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
@@ -72,8 +73,9 @@ namespace CoffeeShop
                 while (reader.Read()) {
                     order_id = int.Parse(reader["order_id"].ToString());
                 }
-                reader.Close();
+                
             }
+            reader.Close();
 
             for (int i = 0; i < listNo; i++)
             {
@@ -83,12 +85,15 @@ namespace CoffeeShop
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
 
+                /*
                 // update stock
                 sql = "UPDATE Order_Detail SET quantity = " + listQuantity[i] +
                     " WHERE order_id = " + order_id + " and drink_name = '" + listName[i] + "'";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
+                */
 
+                Console.WriteLine(listStock[listStockIndex[i]] + ", i: " + i + ", listStockIndex[i]: " + listStockIndex[i]);
                 sql = "UPDATE Drinks SET stock = " + (listStock[listStockIndex[i]] - listQuantity[i]) +
                     " WHERE drink_id = " + (listStockIndex[i] + 1);
                 cmd = new SqlCommand(sql, connection);
@@ -100,7 +105,7 @@ namespace CoffeeShop
             clearOrder();
             LoadOrder(-1);
             MessageBox.Show("Checkout successfully.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            LoadDrinks(-1);
+            //LoadDrinks(-1);
             connection.Close();
         }
 
@@ -113,29 +118,28 @@ namespace CoffeeShop
             listQuantity.Clear();
             listSum.Clear();
             total = 0;
-
-            LoadDrinks(-1);
+            //LoadDrinks(-1);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            stockTemp = listStock;
+            //stockTemp = listStock;
             clearOrder();
             LoadOrder(-1);
+            //LoadDrinks(-1);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            List<int> listItemIndex = new List<int>();
+            //List<int> listItemIndex = new List<int>();
             String value = (String) gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
             
-            //MessageBox.Show(listPrice[index].ToString());
             foreach (string i in listName)
             {
-                
+                // update quantity of already added item in gridOrder
                 if (i == value) {
                     index = listName.IndexOf(i);
                     listQuantity[index] += 1;
@@ -150,6 +154,8 @@ namespace CoffeeShop
                     return;
                 }
             }
+
+            // add new item in gridOrder
             listNo += 1;
             index = listNo;
             listQuantity.Add(1);
@@ -168,7 +174,6 @@ namespace CoffeeShop
         }
 
         public void LoadOrder(int index) {
-            
 
             gridOrder.Rows.Clear();
             gridOrder.Refresh();
@@ -212,6 +217,7 @@ namespace CoffeeShop
             
             if (reader.HasRows)
             {
+                listStock.Clear();
                 while (reader.Read())
                 {
                     listNamed.Add(reader["name"].ToString());
@@ -220,7 +226,7 @@ namespace CoffeeShop
                     stock.Add(int.Parse(reader["stock"].ToString()));
                     listPrice.Add(float.Parse(reader["price"].ToString()));
                 }
-                reader.Close();
+                
 
                 //MessageBox.Show(listStock.ToArray().ToString());
 
@@ -252,6 +258,7 @@ namespace CoffeeShop
 
                 
             }
+            reader.Close();
             connection.Close();
         }
 

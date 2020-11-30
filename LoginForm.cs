@@ -49,12 +49,13 @@ namespace CoffeeShop
                     {
                         role = reader[0].ToString();
                     }
+                    
                     //MessageBox.Show("Read :)");
                 }
 
-                
-
                 reader.Close();
+
+
                 if (role == "Admin") {
                     AdminForm admin = new AdminForm();
                     admin.Show();

@@ -63,7 +63,7 @@ namespace CoffeeShop
                     listTotal.Add(reader["total"].ToString());
                     listDate.Add(reader["date"].ToString());
                 }
-                reader.Close();
+                
 
                 for (int i = 0; i < listId.Count; i++)
                 {
@@ -76,7 +76,7 @@ namespace CoffeeShop
                     gridHistory.Rows.Add(newRow);
                 }
             }
-
+            reader.Close();
         }
 
         public void LoadUsers()
@@ -108,7 +108,7 @@ namespace CoffeeShop
                     listName.Add(reader["name"].ToString());
                     listRole.Add(reader["role"].ToString());
                 }
-                reader.Close();
+                
 
                 for (int i = 0; i < listId.Count; i++)
                 {
@@ -123,6 +123,7 @@ namespace CoffeeShop
                     gridUsers.Rows.Add(newRow);
                 }
             }
+            reader.Close();
         }
 
         public void LoadDrinks()
@@ -154,7 +155,7 @@ namespace CoffeeShop
                     listStock.Add(reader["stock"].ToString());
                     listImage.Add(reader["image"].ToString());
                 }
-                reader.Close();
+                
 
                 for (int i = 0; i < listId.Count; i++)
                 {
@@ -169,8 +170,8 @@ namespace CoffeeShop
                     gridDrinks.Rows.Add(newRow);
                 }
             }
+            reader.Close();
         }
-
 
         private void btnAddDrinks_Click(object sender, EventArgs e)
         {
@@ -219,7 +220,7 @@ namespace CoffeeShop
             else {
                 if (name == "") name = "";
                 String sql = "INSERT INTO Accounts(username, password, name, role)" +
-                    "VALUES('" + username + "', '" + password + "', '" + name + "', '" + role + "')";
+                    " VALUES('" + username + "', '" + password + "', '" + name + "', '" + role + "')";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
                 gridUsers.Rows.Clear();

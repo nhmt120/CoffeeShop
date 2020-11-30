@@ -76,5 +76,10 @@ CREATE TABLE Order_Detail (
 -- get latest inserted data
 -- SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)
 
-UPDATE Order_Detail SET quantity = 25 WHERE order_id = 1 and drink_name = 'Espresso';
-
+-- UPDATE Order_Detail SET quantity = 25 WHERE order_id = 1 and drink_name = 'Espresso';
+/*
+drop table Order_Detail
+drop table Orders
+drop table Drinks
+drop table accounts
+*/
