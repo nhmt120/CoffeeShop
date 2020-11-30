@@ -27,8 +27,7 @@ namespace CoffeeShop
             {
                 connection = new SqlConnection(connectionString);
                 connection.Open();
-                //MessageBox.Show("Connect to db.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                
                 LoadUsers();
                 LoadDrinks();
                 LoadHistory();
@@ -42,6 +41,7 @@ namespace CoffeeShop
 
         public void LoadHistory()
         {
+            // display all order histories in db
             ArrayList listId = new ArrayList();
             ArrayList listTotal = new ArrayList();
             ArrayList listDate = new ArrayList();
@@ -81,6 +81,7 @@ namespace CoffeeShop
 
         public void LoadUsers()
         {
+            // display all users in db
             ArrayList listId = new ArrayList();
             ArrayList listUsername = new ArrayList();
             ArrayList listPassword = new ArrayList();
@@ -128,6 +129,7 @@ namespace CoffeeShop
 
         public void LoadDrinks()
         {
+            // display all current drinks in db
             ArrayList listId = new ArrayList();
             ArrayList listName = new ArrayList();
             ArrayList listPrice = new ArrayList();

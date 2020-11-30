@@ -60,17 +60,19 @@ namespace CoffeeShop
 
             connection.Open();
             if (listNo != 0) {
+                // add new order into db
                 sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
             } else
             {
+                // Empty checkout check
                 MessageBox.Show("There is no item to checkout.", "Empty checkout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 connection.Close();
                 return;
             }
 
-            //get id of latest order 
+            // get id of latest order 
             sql = "SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)";
             cmd = new SqlCommand(sql, connection);
             cmd.ExecuteNonQuery();
@@ -87,21 +89,14 @@ namespace CoffeeShop
 
             for (int i = 0; i < listNo; i++)
             {
-                // order details
+                // add order details into db
                 sql = "INSERT INTO Order_Detail (order_id, drink_name, quantity) " +
                     "VALUES (" + order_id + ", '" + listName[i] + "', " + listQuantity[i] + ")";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
 
-                /*
-                // update stock
-                sql = "UPDATE Order_Detail SET quantity = " + listQuantity[i] +
-                    " WHERE order_id = " + order_id + " and drink_name = '" + listName[i] + "'";
-                cmd = new SqlCommand(sql, connection);
-                cmd.ExecuteNonQuery();
-                */
 
-                //Console.WriteLine(listStock[listStockIndex[i]] + ", i: " + i + ", listStockIndex[i]: " + listStockIndex[i]);
+                // update stock in db after checkout 
                 sql = "UPDATE Drinks SET stock = " + (listStock[listStockIndex[i]] - listQuantity[i]) +
                     " WHERE drink_id = " + (listStockIndex[i] + 1);
                 cmd = new SqlCommand(sql, connection);
@@ -113,7 +108,6 @@ namespace CoffeeShop
             clearOrder();
             LoadOrder(-1);
             MessageBox.Show("Checkout successfully, stock updated.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //LoadDrinks(-1);
             connection.Close();
         }
 
@@ -126,27 +120,22 @@ namespace CoffeeShop
             listQuantity.Clear();
             listSum.Clear();
             total = 0;
-            //LoadDrinks(-1);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            //stockTemp = listStock;
             clearOrder();
             LoadOrder(-1);
-            //LoadDrinks(-1);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            //List<int> listItemIndex = new List<int>();
             String value = (String) gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
 
-            //MessageBox.Show(gridMenu[1, itemIndex].Value.ToString());
-
+            // check if added item satisfies the current stock
             int itemStock = int.Parse(gridMenu[1, itemIndex].Value.ToString());
             if (itemStock == 0)
             {
@@ -156,7 +145,7 @@ namespace CoffeeShop
 
             foreach (string i in listName)
             {
-                // update quantity of already added item in gridOrder
+                // update item quantity of already added item in gridOrder
                 if (i == value) {
                     index = listName.IndexOf(i);
                     listQuantity[index] += 1;
@@ -166,7 +155,6 @@ namespace CoffeeShop
                     {
                         total += j;
                     }
-                    
                     LoadOrder(itemIndex);
                     return;
                 }
@@ -186,15 +174,12 @@ namespace CoffeeShop
             }
 
             LoadOrder(itemIndex);
-             
-            //MessageBox.Show("yooo " + listQuantity + " ss " + listQuantity[index]);
         }
 
         public void LoadOrder(int index) {
-
+            // load added item into gridOrder
             gridOrder.Rows.Clear();
-            gridOrder.Refresh();
-            
+            gridOrder.Refresh();    
 
             for (int i = 0; i < listNo; i++)
             {
@@ -212,7 +197,6 @@ namespace CoffeeShop
 
             lbTotal.Text = total.ToString();
             
-
         }
 
         public void LoadDrinks(int index)
@@ -234,6 +218,9 @@ namespace CoffeeShop
             
             if (reader.HasRows)
             {
+                // listStock: global variable for current stock in db
+                // stockTemp: global variable for current stock updating with new added item
+                // stock: local variable for temporary stock
                 listStock.Clear();
                 while (reader.Read())
                 {
@@ -244,10 +231,9 @@ namespace CoffeeShop
                     listPrice.Add(float.Parse(reader["price"].ToString()));
                 }
 
-                //MessageBox.Show(listStock.ToArray().ToString());
-
                 if (index != -1)
                 {
+                    // update gridMenu in case there is a new update with current stock
                     stockTemp[index] -= 1;
                     for (int i = 0; i < listNamed.Count; i++)
                     {
@@ -258,10 +244,9 @@ namespace CoffeeShop
                         newRow.Cells[1].Value = stockTemp[i];
                         gridMenu.Rows.Add(newRow);
                     }
-                    
-                    
                 } else
                 {
+                    // temporary fix to load gridMenu with no update in the current stock
                     for (int i = 0; i < listNamed.Count; i++)
                     {
                         DataGridViewRow newRow = new DataGridViewRow();
@@ -293,16 +278,12 @@ namespace CoffeeShop
             try
             {
                 connection = new SqlConnection(connectionString);
-                //connection.Open();
-                //MessageBox.Show("Connect to db.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Can't connect to db\nError:\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        
 
         private void btnLogout_Click(object sender, EventArgs e)
         {

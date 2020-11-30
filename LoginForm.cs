@@ -30,14 +30,11 @@ namespace CoffeeShop
             username = txtUsername.Text;
             password = txtPassword.Text;
 
-            //MessageBox.Show(username + " " + password);
-
             if (username == "") {
                 txtUsername.Focus();
             } else if (password == "") {
                 txtPassword.Focus();
             } else {
-                //MessageBox.Show(username + " " + password);
                 role = null;
                 String sql = "SELECT role FROM Accounts WHERE username = '" + username + "' and password = '" + password + "'";
                 cmd = new SqlCommand(sql, connection);
@@ -49,12 +46,9 @@ namespace CoffeeShop
                     {
                         role = reader[0].ToString();
                     }
-                    
-                    //MessageBox.Show("Read :)");
                 }
 
                 reader.Close();
-
 
                 if (role == "Admin") {
                     AdminForm admin = new AdminForm();
@@ -87,7 +81,6 @@ namespace CoffeeShop
             {
                 connection = new SqlConnection(connectionString);
                 connection.Open();
-                //MessageBox.Show("Connect to db.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

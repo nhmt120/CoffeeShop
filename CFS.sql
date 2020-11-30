@@ -1,14 +1,6 @@
 ﻿CREATE DATABASE CFS
 USE CFS
 
-/*
-create database foo
-use foo
-drop database CFS
-drop database foo
-*/
-
-
 -- identity = auto increment
 CREATE TABLE Accounts (
 	account_id int IDENTITY(1, 1) PRIMARY KEY,
@@ -22,11 +14,6 @@ INSERT INTO Accounts (username, password, name, role)
 VALUES ('vince', 'vince', 'Vince', 'Cashier'),
 	   ('admin', 'admin', 'Administrator', 'Admin'),
 	   ('cashier', 'cashier', 'Cashier', 'Cashier')
-
--- drop table accounts
--- select * from Accounts
--- where role = 'Admin'
--- "SELECT * FROM Accounts WHERE username = 'cashier1' and password = 'cashier1';"
 
 CREATE TABLE Drinks (
 	drink_id int IDENTITY(1, 1) PRIMARY KEY,
@@ -45,10 +32,7 @@ VALUES ('Espresso', 3.0),
 	   ('Macchiato', 4.0),
 	   ('Americano', 2.5),
 	   ('Cold Brew', 3.0)
-
--- drop table Drinks
--- select * from Drinks where name = 'Hot Choc'
-
+	   
 
 CREATE TABLE Orders (
 	order_id int IDENTITY(1, 1) PRIMARY KEY,
@@ -56,28 +40,18 @@ CREATE TABLE Orders (
 	[date] smalldatetime
 )
 
--- SELECT * FROM Orders
--- drop table Orders
-
--- INSERT INTO Orders (total, date) VALUES (2.5, (SELECT GETDATE()))
-
-
 CREATE TABLE Order_Detail (
 	order_id int FOREIGN KEY REFERENCES Orders(order_id),
 	drink_name nvarchar(25),
 	quantity int
 )
 
--- INSERT INTO Order_Detail (order_id, drink_name, quantity) VALUES ((SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)), 'Espresso', 2)
-
--- drop table Order_Detail
--- select * from Order_Detail
-
--- get latest inserted data
--- SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)
-
--- UPDATE Order_Detail SET quantity = 25 WHERE order_id = 1 and drink_name = 'Espresso';
 /*
+select * from Accounts
+select * from Drinks
+select * from Orders
+select * from Order_Detail
+
 drop table Order_Detail
 drop table Orders
 drop table Drinks
