@@ -108,7 +108,6 @@ namespace CoffeeShop
                     listName.Add(reader["name"].ToString());
                     listRole.Add(reader["role"].ToString());
                 }
-                
 
                 for (int i = 0; i < listId.Count; i++)
                 {
@@ -122,6 +121,7 @@ namespace CoffeeShop
                     newRow.Cells[4].Value = listRole[i];
                     gridUsers.Rows.Add(newRow);
                 }
+                this.gridUsers.CurrentCell = this.gridUsers[0, listId.Count - 1];
             }
             reader.Close();
         }
@@ -169,6 +169,7 @@ namespace CoffeeShop
                     newRow.Cells[4].Value = listImage[i];
                     gridDrinks.Rows.Add(newRow);
                 }
+                this.gridDrinks.CurrentCell = this.gridDrinks[0, listId.Count - 1];
             }
             reader.Close();
         }

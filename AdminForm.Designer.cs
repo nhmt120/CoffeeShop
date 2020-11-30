@@ -177,6 +177,7 @@
             // 
             this.gridDrinks.AllowUserToOrderColumns = true;
             this.gridDrinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridDrinks.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridDrinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridDrinks.Location = new System.Drawing.Point(29, 69);
             this.gridDrinks.Name = "gridDrinks";
@@ -257,7 +258,7 @@
             this.cbbRole.Location = new System.Drawing.Point(13, 26);
             this.cbbRole.Name = "cbbRole";
             this.cbbRole.Size = new System.Drawing.Size(88, 24);
-            this.cbbRole.TabIndex = 12;
+            this.cbbRole.TabIndex = 17;
             // 
             // label1
             // 
@@ -282,14 +283,14 @@
             this.txtPassword.Location = new System.Drawing.Point(248, 26);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(130, 22);
-            this.txtPassword.TabIndex = 18;
+            this.txtPassword.TabIndex = 15;
             // 
             // btnAddUser
             // 
             this.btnAddUser.Location = new System.Drawing.Point(549, 25);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(88, 23);
-            this.btnAddUser.TabIndex = 5;
+            this.btnAddUser.TabIndex = 18;
             this.btnAddUser.Text = "Add";
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
@@ -298,6 +299,7 @@
             // 
             this.gridUsers.AllowUserToOrderColumns = true;
             this.gridUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridUsers.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridUsers.Location = new System.Drawing.Point(29, 69);
             this.gridUsers.Name = "gridUsers";
@@ -322,6 +324,7 @@
             // 
             this.gridHistory.AllowUserToOrderColumns = true;
             this.gridHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridHistory.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridHistory.Location = new System.Drawing.Point(30, 48);
             this.gridHistory.Name = "gridHistory";

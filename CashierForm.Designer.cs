@@ -55,6 +55,7 @@
             // gridMenu
             // 
             this.gridMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.gridMenu.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridMenu.Location = new System.Drawing.Point(24, 49);
             this.gridMenu.Name = "gridMenu";
@@ -85,6 +86,7 @@
             // gridOrder
             // 
             this.gridOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridOrder.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridOrder.Location = new System.Drawing.Point(311, 49);
             this.gridOrder.Name = "gridOrder";

@@ -93,7 +93,7 @@ namespace CoffeeShop
                 cmd.ExecuteNonQuery();
                 */
 
-                Console.WriteLine(listStock[listStockIndex[i]] + ", i: " + i + ", listStockIndex[i]: " + listStockIndex[i]);
+                //Console.WriteLine(listStock[listStockIndex[i]] + ", i: " + i + ", listStockIndex[i]: " + listStockIndex[i]);
                 sql = "UPDATE Drinks SET stock = " + (listStock[listStockIndex[i]] - listQuantity[i]) +
                     " WHERE drink_id = " + (listStockIndex[i] + 1);
                 cmd = new SqlCommand(sql, connection);
@@ -104,7 +104,7 @@ namespace CoffeeShop
 
             clearOrder();
             LoadOrder(-1);
-            MessageBox.Show("Checkout successfully.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show("Checkout successfully, stock updated.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             //LoadDrinks(-1);
             connection.Close();
         }
@@ -136,6 +136,8 @@ namespace CoffeeShop
             String value = (String) gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
+
+            //MessageBox.Show(stockTemp.Count.ToString());
             
             foreach (string i in listName)
             {
@@ -242,6 +244,8 @@ namespace CoffeeShop
                         newRow.Cells[1].Value = stockTemp[i];
                         gridMenu.Rows.Add(newRow);
                     }
+                    
+                    
                 } else
                 {
                     for (int i = 0; i < listNamed.Count; i++)
@@ -253,10 +257,19 @@ namespace CoffeeShop
                         newRow.Cells[1].Value = stock[i];
                         gridMenu.Rows.Add(newRow);
                     }
+                    
+                }
+
+                // select last selected row index for better experience, format [col, row]
+                if (index == -1)
+                {
+                    this.gridMenu.CurrentCell = this.gridMenu[0, 0];
+                } else
+                {
+                    this.gridMenu.CurrentCell = this.gridMenu[0, index];
                 }
                 
 
-                
             }
             reader.Close();
             connection.Close();
