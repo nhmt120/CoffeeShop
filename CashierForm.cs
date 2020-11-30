@@ -45,7 +45,8 @@ namespace CoffeeShop
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-
+            String sql;
+            SqlCommand cmd;
             List<int> listStockIndex = new List<int>();
             int order_id = 1;
 
@@ -58,9 +59,16 @@ namespace CoffeeShop
             }
 
             connection.Open();
-            String sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
-            SqlCommand cmd = new SqlCommand(sql, connection);
-            cmd.ExecuteNonQuery();
+            if (listNo != 0) {
+                sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
+                cmd = new SqlCommand(sql, connection);
+                cmd.ExecuteNonQuery();
+            } else
+            {
+                MessageBox.Show("There is no item to checkout.", "Empty checkout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return;
+            }
 
             //get id of latest order 
             sql = "SELECT order_id FROM Orders t1 WHERE date = (SELECT max([date]) FROM Orders t2)";
@@ -137,8 +145,15 @@ namespace CoffeeShop
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
 
-            //MessageBox.Show(stockTemp.Count.ToString());
-            
+            //MessageBox.Show(gridMenu[1, itemIndex].Value.ToString());
+
+            int itemStock = int.Parse(gridMenu[1, itemIndex].Value.ToString());
+            if (itemStock == 0)
+            {
+                MessageBox.Show(value + " out of stock", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             foreach (string i in listName)
             {
                 // update quantity of already added item in gridOrder
@@ -228,7 +243,6 @@ namespace CoffeeShop
                     stock.Add(int.Parse(reader["stock"].ToString()));
                     listPrice.Add(float.Parse(reader["price"].ToString()));
                 }
-                
 
                 //MessageBox.Show(listStock.ToArray().ToString());
 
@@ -268,8 +282,6 @@ namespace CoffeeShop
                 {
                     this.gridMenu.CurrentCell = this.gridMenu[0, index];
                 }
-                
-
             }
             reader.Close();
             connection.Close();

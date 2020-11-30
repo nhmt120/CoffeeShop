@@ -155,7 +155,6 @@ namespace CoffeeShop
                     listStock.Add(reader["stock"].ToString());
                     listImage.Add(reader["image"].ToString());
                 }
-                
 
                 for (int i = 0; i < listId.Count; i++)
                 {
