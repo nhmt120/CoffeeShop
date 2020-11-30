@@ -38,6 +38,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnCheckout = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridMenu)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridOrder)).BeginInit();
@@ -46,11 +47,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 18);
+            this.label2.Location = new System.Drawing.Point(21, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 17);
+            this.label2.Size = new System.Drawing.Size(43, 17);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Menu Order";
+            this.label2.Text = "Menu";
             // 
             // gridMenu
             // 
@@ -146,11 +147,21 @@
             this.btnCheckout.UseVisualStyleBackColor = true;
             this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(308, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 17);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Order";
+            // 
             // CashierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 413);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCheckout);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAdd);
@@ -185,5 +196,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnCheckout;
+        private System.Windows.Forms.Label label3;
     }
 }
