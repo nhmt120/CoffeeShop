@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace CoffeeShop
@@ -19,7 +14,7 @@ namespace CoffeeShop
         List<int> stockTemp = new List<int>();
 
         int listNo = 0;
-        float total;
+        double total;
 
         ArrayList listName = new ArrayList();
         List<int> listQuantity = new List<int>();
@@ -59,12 +54,14 @@ namespace CoffeeShop
             }
 
             connection.Open();
-            if (listNo != 0) {
+            if (listNo != 0)
+            {
                 // add new order into db
                 sql = "INSERT INTO Orders(total, date) VALUES('" + total + "', (SELECT GETDATE()))";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
-            } else
+            }
+            else
             {
                 // Empty checkout check
                 MessageBox.Show("There is no item to checkout.", "Empty checkout", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -80,10 +77,11 @@ namespace CoffeeShop
 
             if (reader.HasRows)
             {
-                while (reader.Read()) {
+                while (reader.Read())
+                {
                     order_id = int.Parse(reader["order_id"].ToString());
                 }
-                
+
             }
             reader.Close();
 
@@ -94,7 +92,6 @@ namespace CoffeeShop
                     "VALUES (" + order_id + ", '" + listName[i] + "', " + listQuantity[i] + ")";
                 cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
-
 
                 // update stock in db after checkout 
                 sql = "UPDATE Drinks SET stock = " + (listStock[listStockIndex[i]] - listQuantity[i]) +
@@ -131,7 +128,7 @@ namespace CoffeeShop
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            String value = (String) gridMenu.CurrentCell.Value;
+            String value = (String)gridMenu.CurrentCell.Value;
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
 
@@ -146,7 +143,8 @@ namespace CoffeeShop
             foreach (string i in listName)
             {
                 // update item quantity of already added item in gridOrder
-                if (i == value) {
+                if (i == value)
+                {
                     index = listName.IndexOf(i);
                     listQuantity[index] += 1;
                     listSum[index] += listPrice[itemIndex];
@@ -176,10 +174,11 @@ namespace CoffeeShop
             LoadOrder(itemIndex);
         }
 
-        public void LoadOrder(int index) {
+        public void LoadOrder(int index)
+        {
             // load added item into gridOrder
             gridOrder.Rows.Clear();
-            gridOrder.Refresh();    
+            gridOrder.Refresh();
 
             for (int i = 0; i < listNo; i++)
             {
@@ -195,8 +194,8 @@ namespace CoffeeShop
 
             LoadDrinks(index);
 
-            lbTotal.Text = total.ToString();
-            
+            lbTotal.Text = total.ToString("C2", CultureInfo.CurrentCulture);
+
         }
 
         public void LoadDrinks(int index)
@@ -207,7 +206,7 @@ namespace CoffeeShop
 
             ArrayList listNamed = new ArrayList();
             List<int> stock = new List<int>();
-            
+
             String sql = "SELECT name, stock, price FROM Drinks";
             SqlCommand cmd = new SqlCommand(sql, connection);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -215,7 +214,7 @@ namespace CoffeeShop
             gridMenu.ColumnCount = 2;
             gridMenu.Columns[0].Name = "Name";
             gridMenu.Columns[1].Name = "Stock";
-            
+
             if (reader.HasRows)
             {
                 // listStock: global variable for current stock in db
@@ -244,7 +243,8 @@ namespace CoffeeShop
                         newRow.Cells[1].Value = stockTemp[i];
                         gridMenu.Rows.Add(newRow);
                     }
-                } else
+                }
+                else
                 {
                     // temporary fix to load gridMenu with no update in the current stock
                     for (int i = 0; i < listNamed.Count; i++)
@@ -256,14 +256,15 @@ namespace CoffeeShop
                         newRow.Cells[1].Value = stock[i];
                         gridMenu.Rows.Add(newRow);
                     }
-                    
+
                 }
 
                 // select last selected row index for better experience, format [col, row]
                 if (index == -1)
                 {
                     this.gridMenu.CurrentCell = this.gridMenu[0, 0];
-                } else
+                }
+                else
                 {
                     this.gridMenu.CurrentCell = this.gridMenu[0, index];
                 }

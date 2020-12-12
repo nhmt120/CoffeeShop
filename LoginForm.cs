@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace CoffeeShop
 {
@@ -30,11 +23,16 @@ namespace CoffeeShop
             username = txtUsername.Text;
             password = txtPassword.Text;
 
-            if (username == "") {
+            if (username == "")
+            {
                 txtUsername.Focus();
-            } else if (password == "") {
+            }
+            else if (password == "")
+            {
                 txtPassword.Focus();
-            } else {
+            }
+            else
+            {
                 role = null;
                 String sql = "SELECT role FROM Accounts WHERE username = '" + username + "' and password = '" + password + "'";
                 cmd = new SqlCommand(sql, connection);
@@ -50,18 +48,23 @@ namespace CoffeeShop
 
                 reader.Close();
 
-                if (role == "Admin") {
+                if (role == "Admin")
+                {
                     AdminForm admin = new AdminForm();
                     admin.Show();
                     connection.Close();
                     this.Hide();
-                } else if (role == "Cashier") {
+                }
+                else if (role == "Cashier")
+                {
                     CashierForm cashier = new CashierForm();
                     cashier.Show();
                     connection.Close();
                     this.Hide();
-                } else {
-                    MessageBox.Show("Authentication failed.", "Login CFS", MessageBoxButtons.OK,  MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Authentication failed.", "Login CFS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtUsername.Text = "";
                     txtPassword.Text = "";
                     txtUsername.Focus();

@@ -81,6 +81,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CFSDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CFSDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFSDataSet11.xsd</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +122,17 @@
     </None>
     <None Include="CFSDataSet1.xss">
       <DependentUpon>CFSDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="CFSDataSet11.xsc">
+      <DependentUpon>CFSDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="CFSDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CFSDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CFSDataSet11.xss">
+      <DependentUpon>CFSDataSet11.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

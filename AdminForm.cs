@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CoffeeShop
@@ -27,7 +20,7 @@ namespace CoffeeShop
             {
                 connection = new SqlConnection(connectionString);
                 connection.Open();
-                
+
                 LoadUsers();
                 LoadDrinks();
                 LoadHistory();
@@ -63,7 +56,7 @@ namespace CoffeeShop
                     listTotal.Add(reader["total"].ToString());
                     listDate.Add(reader["date"].ToString());
                 }
-                
+
 
                 for (int i = 0; i < listId.Count; i++)
                 {
@@ -197,8 +190,8 @@ namespace CoffeeShop
 
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.ExecuteNonQuery();
-                
-                
+
+
                 gridDrinks.Rows.Clear();
                 LoadDrinks();
                 gridDrinks.Refresh();
@@ -206,7 +199,8 @@ namespace CoffeeShop
             }
         }
 
-        private void btnAddUser_Click(object sender, EventArgs e) {
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
             String username = txtUsername.Text.Trim();
             String password = txtPassword.Text.Trim();
             String name = txtName.Text.Trim();
@@ -216,10 +210,12 @@ namespace CoffeeShop
             {
                 txtUsername.Focus();
             }
-            else if (password == "") {
+            else if (password == "")
+            {
                 txtPassword.Focus();
             }
-            else {
+            else
+            {
                 if (name == "") name = "";
                 String sql = "INSERT INTO Accounts(username, password, name, role)" +
                     " VALUES('" + username + "', '" + password + "', '" + name + "', '" + role + "')";
