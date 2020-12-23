@@ -240,7 +240,7 @@ namespace CoffeeShop
             if (MessageBox.Show("Are you sure you want to exit?", "Coffee Shop Management System", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
-            }
+            } 
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -127,8 +127,7 @@ namespace CoffeeShop
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
-            String value = (String)gridMenu.CurrentCell.Value;
+            String value = (String)gridMenu.CurrentRow.Cells[0].Value.ToString();
             int itemIndex = gridMenu.CurrentCell.RowIndex;
             int index;
 
