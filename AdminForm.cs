@@ -92,6 +92,8 @@ namespace CoffeeShop
             gridUsers.Columns[3].Name = "Name";
             gridUsers.Columns[4].Name = "Role";
 
+            gridUsers.Columns[0].ReadOnly = true;
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -118,6 +120,9 @@ namespace CoffeeShop
                 this.gridUsers.CurrentCell = this.gridUsers[0, listId.Count - 1];
             }
             reader.Close();
+            txtUsername.Clear();
+            txtPassword.Clear();
+            txtName.Clear();
         }
 
         public void LoadDrinks()
@@ -139,6 +144,8 @@ namespace CoffeeShop
             gridDrinks.Columns[2].Name = "Price";
             gridDrinks.Columns[3].Name = "Stock";
             gridDrinks.Columns[4].Name = "Image";
+
+            gridDrinks.Columns[0].ReadOnly = true;
 
             if (reader.HasRows)
             {
@@ -163,9 +170,13 @@ namespace CoffeeShop
                     newRow.Cells[4].Value = listImage[i];
                     gridDrinks.Rows.Add(newRow);
                 }
-                this.gridDrinks.CurrentCell = this.gridDrinks[0, listId.Count - 1];
+                
             }
             reader.Close();
+            this.gridDrinks.CurrentCell = this.gridDrinks[0, listId.Count - 1];
+            txtDrinkName.Clear();
+            txtDrinkPrice.Clear();
+            txtDrinkStock.Clear();
         }
 
         private void btnAddDrinks_Click(object sender, EventArgs e)
@@ -253,6 +264,35 @@ namespace CoffeeShop
             this.Hide();
             CashierForm cashier = new CashierForm();
             cashier.Show();
+        }
+
+        private void gridDrinks_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            String id = (String)gridDrinks.CurrentRow.Cells[0].Value.ToString();
+            String name = (String)gridDrinks.CurrentRow.Cells[1].Value.ToString();
+            String price = (String)gridDrinks.CurrentRow.Cells[2].Value.ToString();
+            String stock = (String)gridDrinks.CurrentRow.Cells[3].Value.ToString();
+
+            // update drink detail in db
+            String sql = "UPDATE Drinks SET stock = " + stock + ", name = '" + name + "', price = " + price +
+                " WHERE drink_id = " + id;
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        private void gridUsers_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            String id = (String)gridUsers.CurrentRow.Cells[0].Value.ToString();
+            String username = (String)gridUsers.CurrentRow.Cells[1].Value.ToString();
+            String password = (String)gridUsers.CurrentRow.Cells[2].Value.ToString();
+            String name = (String)gridUsers.CurrentRow.Cells[3].Value.ToString();
+            String role = (String)gridUsers.CurrentRow.Cells[4].Value.ToString();
+
+            // update drink detail in db
+            String sql = "UPDATE Accounts SET username = '" + username + "', password = '" + password + "', name = '" + name + "', role = '" + role + "'" +
+                " WHERE account_id = " + id;
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            cmd.ExecuteNonQuery();
         }
     }
 }

@@ -187,6 +187,7 @@
             this.gridDrinks.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.gridDrinks.Size = new System.Drawing.Size(742, 250);
             this.gridDrinks.TabIndex = 2;
+            this.gridDrinks.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridDrinks_CellValueChanged);
             // 
             // tabUsers
             // 
@@ -309,6 +310,7 @@
             this.gridUsers.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.gridUsers.Size = new System.Drawing.Size(742, 250);
             this.gridUsers.TabIndex = 1;
+            this.gridUsers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUsers_CellValueChanged);
             // 
             // tabHistory
             // 

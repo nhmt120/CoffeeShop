@@ -1,4 +1,5 @@
-﻿CREATE DATABASE CFS
+﻿
+--CREATE DATABASE CFS
 USE CFS
 
 -- identity = auto increment
